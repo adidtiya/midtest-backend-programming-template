@@ -7,7 +7,6 @@ const { hashPassword, passwordMatched } = require('../../../utils/password');
  */
 async function getUsers() {
   const users = await usersRepository.getUsers();
-
   const results = [];
   for (let i = 0; i < users.length; i += 1) {
     const user = users[i];
@@ -17,8 +16,6 @@ async function getUsers() {
       email: user.email,
     });
   }
-
-  return results;
 }
 
 /**

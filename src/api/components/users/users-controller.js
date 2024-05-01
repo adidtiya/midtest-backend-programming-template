@@ -3,9 +3,6 @@ const { errorResponder, errorTypes } = require('../../../core/errors');
 
 /**
  * Handle get list of users request
- * @param {object} request - Express request object
- * @param {object} response - Express response object
- * @param {object} next - Express route middlewares
  * @returns {object} Response object or pass an error to the next route
  */
 async function getUsers(request, response, next) {
