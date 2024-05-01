@@ -5,16 +5,15 @@ meta {
 }
 
 get {
-  url: http://localhost:5000/api/users?page_number=3&page_size=9
+  url: http://localhost:5000/api/users?search=yosi
   body: none
   auth: none
 }
 
 query {
-  page_number: 3
-  page_size: 9
+  search: yosi
 }
 
 headers {
-  Authorization: JWT eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFkbWluQGV4YW1wbGUuY29tIiwidXNlcklkIjoiNjYyODgzYjI4YzZkNjlhNjc1Y2Y1MTg5IiwiaWF0IjoxNzE0MjI3ODI2LCJleHAiOjE3MTQzMTQyMjZ9.idVV5aXFhBM6ra6irnwhnZ1HhyYjpeUTMKv1f_BYWdg
+  Authorization: JWT eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFkbWluQGV4YW1wbGUuY29tIiwidXNlcklkIjoiNjYyODgzYjI4YzZkNjlhNjc1Y2Y1MTg5IiwiaWF0IjoxNzE0NTQzNjg4LCJleHAiOjE3MTQ2MzAwODh9.8wtVvVYwFsigvlxZ_lxNKUqH2Y0ZrB4iseE8hmFtCas
 }

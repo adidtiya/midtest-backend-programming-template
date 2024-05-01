@@ -5,19 +5,22 @@ const { errorResponder, errorTypes } = require('../../../core/errors');
  * Handle get list of users request
  * @returns {object} Response object or pass an error to the next route
  */
+
 async function getUsers(request, response, next) {
   try {
-    const page_number = parseInt(request.query.page_number) || 1;
-    const page_size = parseInt(request.query.page_size) || 20;
-    const search = request.query.search || '';
+    const page_number = parseInt(request.query.page_number) || 1; //membuat page_number
+    const page_size = parseInt(request.query.page_size) || 20; //membuat  page_size 
+    const search = request.query.search || ''; //membuat search 
     const sort = request.query.sort || 'name';
 
+    // Panggil fungsi getUsers dari usersService
     const filteredUsers = await usersService.getUsers(search, sort);
 
     const total_items = filteredUsers.length;
     const total_pages = Math.ceil(total_items / page_size);
-    const index_awal = (page_number - 1) * page_size;
-    const data = filteredUsers.slice(index_awal, index_awal + page_size);
+    const mulai_index = (page_number - 1) * page_size; //menghitung mulai_index
+    const akhir_index = Math.min(mulai_index + page_size, total_items);
+    const data = filteredUsers.slice(mulai_index, akhir_index);
 
     const response_data = {
       page_number: page_number,

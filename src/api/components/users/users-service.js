@@ -7,13 +7,26 @@ const { hashPassword, passwordMatched } = require('../../../utils/password');
  */
 async function getUsers(search, sort) {
   const users = await usersRepository.getUsers();
-
+  //search filter
   let filterQuery = {};
-  if (search) {
+  if (!search) {
     const [fieldName, searchKey] = search.split(':');
     filterQuery[fieldName] = { $regex: searchKey, $options: 'i' };
   }
-
+  const filtereUsers = users.filter((user) => {
+    for (const key in filterQuery) {
+      if (
+        user[key] &&
+        !user[key]
+          .toLowerCase()
+          .includes(filterQuery[key].$regex.toLowerCase())
+      ) {
+        return false;
+      }
+    }
+    return true;
+  });
+//sort filter
   let sortQuery = {};
   if (sort) {
     const [fieldName, sortOrder] = sort.split(':');
