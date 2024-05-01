@@ -7,8 +7,33 @@ const { errorResponder, errorTypes } = require('../../../core/errors');
  */
 async function getUsers(request, response, next) {
   try {
-    const users = await usersService.getUsers();
-    return response.status(200).json(users);
+    const page_number = parseInt(request.query.page_number) || 1;
+    const page_size = parseInt(request.query.page_size) || 20;
+    const search = request.query.search || '';
+    const sort = request.query.sort || 'name';
+
+    const filteredUsers = await usersService.getUsers(search, sort);
+
+    const total_items = filteredUsers.length;
+    const total_pages = Math.ceil(total_items / page_size);
+    const index_awal = (page_number - 1) * page_size;
+    const data = filteredUsers.slice(index_awal, index_awal + page_size);
+
+    const response_data = {
+      page_number: page_number,
+      page_size: page_size,
+      count: data.length,
+      total_pages: total_pages,
+      has_previous_page: page_number > 1,
+      has_next_page: page_number < total_pages,
+      data: data.map((user) => ({
+        id: user.id,
+        name: user.name,
+        email: user.email,
+      })),
+    };
+
+    return response.status(200).json(response_data);
   } catch (error) {
     return next(error);
   }

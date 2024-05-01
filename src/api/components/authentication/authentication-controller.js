@@ -9,8 +9,6 @@ const authenticationServices = require('./authentication-service');
  * @returns {object} Response object or pass an error to the next route
  */
 async function login(request, response, next) {
-  const { email, password } = request.body;
-
   try {
     // Check login credentials
     const loginSuccess = await authenticationServices.checkLoginCredentials(

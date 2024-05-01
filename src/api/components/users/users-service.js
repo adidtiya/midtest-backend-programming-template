@@ -5,17 +5,46 @@ const { hashPassword, passwordMatched } = require('../../../utils/password');
  * Get list of users
  * @returns {Array}
  */
-async function getUsers() {
+async function getUsers(search, sort) {
   const users = await usersRepository.getUsers();
-  const results = [];
-  for (let i = 0; i < users.length; i += 1) {
-    const user = users[i];
-    results.push({
-      id: user.id,
-      name: user.name,
-      email: user.email,
-    });
+
+  let filterQuery = {};
+  if (search) {
+    const [fieldName, searchKey] = search.split(':');
+    filterQuery[fieldName] = { $regex: searchKey, $options: 'i' };
   }
+
+  let sortQuery = {};
+  if (sort) {
+    const [fieldName, sortOrder] = sort.split(':');
+    sortQuery[fieldName] = sortOrder === 'desc' ? -1 : 1;
+  } else {
+    sortQuery['email'] = 1;
+  }
+
+  const filteredUsers = users
+    .filter((user) => {
+      for (const key in filterQuery) {
+        if (
+          user[key] &&
+          !user[key]
+            .toLowerCase()
+            .includes(filterQuery[key].$regex.toLowerCase())
+        ) {
+          return false;
+        }
+      }
+      return true;
+    })
+    .sort((a, b) => {
+      for (const key in sortQuery) {
+        if (a[key] < b[key]) return sortQuery[key];
+        if (a[key] > b[key]) return -sortQuery[key];
+      }
+      return 0;
+    });
+
+  return filteredUsers;
 }
 
 /**
