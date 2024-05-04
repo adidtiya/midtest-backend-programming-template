@@ -17,16 +17,14 @@ async function getUsers(search, sort) {
     for (const key in filterQuery) {
       if (
         user[key] &&
-        !user[key]
-          .toLowerCase()
-          .includes(filterQuery[key].$regex.toLowerCase())
+        !user[key].toLowerCase().includes(filterQuery[key].$regex.toLowerCase())
       ) {
         return false;
       }
     }
     return true;
   });
-//sort filter
+  //sort filter
   let sortQuery = {};
   if (sort) {
     const [fieldName, sortOrder] = sort.split(':');
