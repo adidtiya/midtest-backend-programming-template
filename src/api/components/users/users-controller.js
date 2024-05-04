@@ -23,7 +23,7 @@ async function getUsers(request, response, next) {
     const data = filteredUsers.slice(mulai_index, akhir_index);
 
     const response_data = {
-      page_number: page_number,
+      page_number: page_number, 
       page_size: page_size,
       count: data.length,
       total_pages: total_pages,
