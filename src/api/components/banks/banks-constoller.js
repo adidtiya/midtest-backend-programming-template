@@ -28,9 +28,10 @@ async function getBank(request, response, next) {
 async function createBank(request, response, next) {
   try {
     const name = request.body.name;
-    const address = request.body.address;
+    const email = request.body.email;
+    const pin = request.body.pin;
 
-    const success = await banksService.createBank(name, address);
+    const success = await banksService.createBank(name, email, pin);
     if (!success) {
       throw errorResponder(
         errorTypes.UNPROCESSABLE_ENTITY,
@@ -38,7 +39,7 @@ async function createBank(request, response, next) {
       );
     }
 
-    return response.status(200).json({ name, address });
+    return response.status(200).json({ name, email });
   } catch (error) {
     return next(error);
   }
@@ -48,9 +49,9 @@ async function updateBank(request, response, next) {
   try {
     const id = request.params.id;
     const name = request.body.name;
-    const address = request.body.address;
+    const email = request.body.email;
 
-    const success = await banksService.updateBank(id, name, address);
+    const success = await banksService.updateBank(id, name, email);
     if (!success) {
       throw errorResponder(
         errorTypes.UNPROCESSABLE_ENTITY,

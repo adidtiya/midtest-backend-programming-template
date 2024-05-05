@@ -23,7 +23,7 @@ const logger = require('../utils/logger');
     await Bank.create({
       name,
       email,
-      password: hashedPassword,
+      pin: hashedPassword,
     });
   } catch (e) {
     logger.error(e);

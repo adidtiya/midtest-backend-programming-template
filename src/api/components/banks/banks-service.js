@@ -1,7 +1,6 @@
 const bankRepository = require('./bank-repository');
 const { hashPassword, passwordMatched } = require('../../../utils/password');
 
-
 /**
  * Get list of banks
  * @returns {Array}
@@ -35,15 +34,15 @@ async function getBank(id) {
  * Create new bank
  * @param {string} name - Name
  * @param {string} email - Email
- * @param {string} password - Password
+ * @param {string} pin - Pin
  * @returns {boolean}
  */
-async function createBank(name, email, password) {
-  // Hash password
-  const hashedPassword = await hashPassword(password);
+async function createBank(name, email, pin) {
+  // Hash pin
+  const hashedPin = await hashPassword(pin);
 
   try {
-    await bankRepository.createBank(name, email, hashedPassword);
+    await bankRepository.createBank(name, email, hashedPin);
   } catch (err) {
     return null;
   }
@@ -113,23 +112,23 @@ async function emailIsRegistered(email) {
 }
 
 /**
- * Check whether the password is correct
+ * Check whether the pin is correct
  * @param {string} bankId - Bank ID
- * @param {string} password - Password
+ * @param {string} pin - Pin
  * @returns {boolean}
  */
-async function checkPassword(bankId, password) {
+async function checkPin(bankId, pin) {
   const bank = await bankRepository.getBank(bankId);
-  return passwordMatched(password, bank.password);
+  return passwordMatched(pin, bank.pin);
 }
 
 /**
- * Change bank password
+ * Change bank pin
  * @param {string} bankId - Bank ID
- * @param {string} password - Password
+ * @param {string} pin - Pin
  * @returns {boolean}
  */
-async function changePassword(bankId, password) {
+async function changePin(bankId, pin) {
   const bank = await bankRepository.getBank(bankId);
 
   // Check if bank not found
@@ -137,11 +136,11 @@ async function changePassword(bankId, password) {
     return null;
   }
 
-  const hashedPassword = await hashPassword(password);
+  const hashedPin = await hashPassword(pin);
 
-  const changeSuccess = await bankRepository.changePassword(
+  const changeSuccess = await bankRepository.changePin(
     bankId,
-    hashedPassword
+    hashedPin
   );
 
   if (!changeSuccess) {
@@ -158,6 +157,6 @@ module.exports = {
   updateBank,
   deleteBank,
   emailIsRegistered,
-  checkPassword,
-  changePassword,
+  checkPin,
+  changePin,
 };

@@ -7,7 +7,7 @@ module.exports = {
     body: {
       name: joi.string().min(1).max(100).required().label('Name'),
       email: joi.string().email().required().label('Email'),
-      password: joiPassword
+      pin: joiPassword
         .string()
         .minOfSpecialCharacters(1)
         .minOfLowercase(1)
@@ -18,8 +18,8 @@ module.exports = {
         .min(6)
         .max(32)
         .required()
-        .label('Password'),
-      password_confirm: joi.string().required().label('Password confirmation'),
+        .label('Pin'),
+      pin_confirm: joi.string().required().label('Pin confirmation'),
     },
   },
 
@@ -30,10 +30,10 @@ module.exports = {
     },
   },
 
-  changeBankPassword: {
+  changeBankPin: {
     body: {
-      password_old: joi.string().required().label('Old password'),
-      password_new: joiPassword
+      pin_old: joi.string().required().label('Old pin'),
+      pin_new: joiPassword
         .string()
         .minOfSpecialCharacters(1)
         .minOfLowercase(1)
@@ -44,8 +44,8 @@ module.exports = {
         .min(6)
         .max(32)
         .required()
-        .label('New password'),
-      password_confirm: joi.string().required().label('Password confirmation'),
+        .label('New pin'),
+      pin_confirm: joi.string().required().label('Pin confirmation'),
     },
   },
 };
