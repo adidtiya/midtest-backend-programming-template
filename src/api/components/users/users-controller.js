@@ -11,7 +11,7 @@ async function getUsers(request, response, next) {
     const page_number = parseInt(request.query.page_number) || 1; //membuat page_number
     const page_size = parseInt(request.query.page_size) || 20; //membuat  page_size 
     const search = request.query.search || ''; //membuat search 
-    const sort = request.query.sort || 'name';
+    const sort = request.query.sort || 'name'; //membuat sort 
 
     // Panggil fungsi getUsers dari usersService
     const filteredUsers = await usersService.getUsers(search, sort);
@@ -22,7 +22,7 @@ async function getUsers(request, response, next) {
     const akhir_index = Math.min(mulai_index + page_size, total_items);
     const data = filteredUsers.slice(mulai_index, akhir_index);
 
-    const response_data = {
+    const response_data = { //menampilkan data 
       page_number: page_number, 
       page_size: page_size,
       count: data.length,

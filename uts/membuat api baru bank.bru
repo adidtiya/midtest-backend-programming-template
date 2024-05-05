@@ -4,7 +4,7 @@ meta {
   seq: 4
 }
 
-post {
+get {
   url: http://localhost:5000/api/accounts
   body: json
   auth: none
@@ -18,8 +18,8 @@ body:json {
   { 
     "name": "adidtiya",
     "email": "adidtya@example.com",
-    "pin": 123456,
-    "pin_confirm": 123456
+    "pin": "123456",
+    "pin_confirm": "123456"
   }
   
 }
