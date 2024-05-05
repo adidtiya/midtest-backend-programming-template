@@ -7,12 +7,11 @@ module.exports = {
     body: {
       name: joi.string().min(1).max(100).required().label('Name'),
       email: joi.string().email().required().label('Email'),
-      pin: joi.number().integer().min(6).max(32).required().label('Pin'),
+      pin: joi.string().min(6).max(8).required().label('Pin'),
       pin_confirm: joi
-        .number()
-        .integer()
+        .string()
         .min(6)
-        .max(32)
+        .max(8)
         .required()
         .label('Pin confirmation'),
     },
@@ -27,25 +26,12 @@ module.exports = {
 
   changeBankPin: {
     body: {
-      pin_old: joi
-        .number()
-        .integer()
-        .min(6)
-        .max(32)
-        .required()
-        .label('Old pin'),
-      pin_new: joi
-        .number()
-        .integer()
-        .min(6)
-        .max(32)
-        .required()
-        .label('New pin'),
+      pin_old: joi.string().min(6).max(8).required().label('Old pin'),
+      pin_new: joi.string().min(6).max(8).required().label('New pin'),
       pin_confirm: joi
-        .number()
-        .integer()
+        .string()
         .min(6)
-        .max(32)
+        .max(8)
         .required()
         .label('Pin confirmation'),
     },
