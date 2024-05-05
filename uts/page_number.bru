@@ -5,13 +5,16 @@ meta {
 }
 
 get {
-  url: http://localhost:5000/api/users?sort=desc
+  url: http://localhost:5000/api/users?search=email:septian
   body: none
   auth: none
 }
 
 query {
-  sort: desc
+  search: email:septian
+  ~page_number: 2
+  ~page_size: 5
+  ~sort: email:desc
 }
 
 headers {
