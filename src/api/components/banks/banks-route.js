@@ -10,10 +10,10 @@ const route = express.Router();
 module.exports = (app) => {
   app.use('/accounts', route);
 
-  // Get list of accounts
+  // list akun
   route.get('/', authenticationMiddleware, bankingControllers.getAccounts);
 
-  // Create account
+  // membuat akun baru
   route.post(
     '/',
     authenticationMiddleware,
@@ -21,10 +21,10 @@ module.exports = (app) => {
     bankingControllers.createAccount
   );
 
-  // Get account detail
+  // mencari detail akun
   route.get('/:id', authenticationMiddleware, bankingControllers.getAccount);
 
-  // Update account
+  // mengupdate akun 
   route.put(
     '/:id',
     authenticationMiddleware,
@@ -32,6 +32,6 @@ module.exports = (app) => {
     bankingControllers.updateAccount
   );
 
-  // Delete account
+  // menghapus akun 
   route.delete('/:id', authenticationMiddleware, bankingControllers.deleteAccount);
 };

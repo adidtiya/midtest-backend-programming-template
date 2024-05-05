@@ -13,7 +13,7 @@ const bankSchema = new mongoose.Schema({
     unique: true,
     match: /.+\@.+\..+/,
   },
-  password: {
+  pin: {
     type: String,
     required: true,
     minlength: 6,
