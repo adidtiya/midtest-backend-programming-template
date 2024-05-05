@@ -9,7 +9,7 @@ async function getUsers(search, sort) {
   const users = await usersRepository.getUsers();
   //search filter
   let filterQuery = {};
-  if (search) { // change this line
+  if (search) { 
     const [fieldName, searchKey] = search.split(':');
     filterQuery[fieldName] = { $regex: searchKey, $options: 'i' };
   }

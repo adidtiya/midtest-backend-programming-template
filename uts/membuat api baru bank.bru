@@ -5,13 +5,9 @@ meta {
 }
 
 post {
-  url: http://localhost:5000/api/?banks=id
+  url: http://localhost:5000/api/accounts
   body: json
   auth: none
-}
-
-query {
-  banks: id
 }
 
 headers {
@@ -22,7 +18,8 @@ body:json {
   { 
     "name": "adidtiya",
     "email": "adidtya@example.com",
-    "pin": "123452"
+    "pin": 123456,
+    "pin_confirm": 123456
   }
   
 }
