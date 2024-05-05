@@ -1,11 +1,28 @@
 meta {
-  name: membuat api baru bank 
+  name: membuat api baru bank
   type: http
   seq: 4
 }
 
-get {
-  url: 
-  body: none
+post {
+  url: http://localhost:5000/api/?banks=id
+  body: json
   auth: none
+}
+
+query {
+  banks: id
+}
+
+headers {
+  Authorization: JWT eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFkbWluQGV4YW1wbGUuY29tIiwidXNlcklkIjoiNjYyODgzYjI4YzZkNjlhNjc1Y2Y1MTg5IiwiaWF0IjoxNzE0ODk5MDEwLCJleHAiOjE3MTQ5ODU0MTB9.KytG1znDr_BojbJhvS8dzPwWtmXUic2KW_oa56pn-3s
+}
+
+body:json {
+  { 
+    "name": "adidtiya",
+    "email": "adidtya@example.com",
+    "pin": "123452"
+  }
+  
 }
