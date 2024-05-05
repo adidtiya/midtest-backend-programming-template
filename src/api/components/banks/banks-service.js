@@ -1,4 +1,4 @@
-const bankRepository = require('./bank-repository');
+const bankRepository = require('./banks-repository');
 const { hashPassword, passwordMatched } = require('../../../utils/password');
 
 /**
