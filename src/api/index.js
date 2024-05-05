@@ -9,7 +9,7 @@ module.exports = () => {
 
   authentication(app);
   users(app);
-  //banksRoute(app);
+  //banks(app);
 
   return app;
 };
