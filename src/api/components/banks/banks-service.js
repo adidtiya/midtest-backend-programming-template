@@ -58,7 +58,7 @@ async function createBank(name, email, pin) {
  * @returns {boolean}
  */
 async function updateBank(id, name, email) {
-  const bank = await bankRepository.updateBanks(id);
+  const bank = await bankRepository.updateBank(id);
 
   // Bank not found
   if (!bank) {
