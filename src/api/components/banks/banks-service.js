@@ -15,8 +15,8 @@ async function getBanks() {
  * @param {string} id - Bank ID
  * @returns {Object}
  */
-async function getBank(id) {
-  const bank = await bankRepository.getBank(id);
+async function getBanks(id) {
+  const bank = await bankRepository.getBanks(id);
 
   // Bank not found
   if (!bank) {
@@ -58,7 +58,7 @@ async function createBank(name, email, pin) {
  * @returns {boolean}
  */
 async function updateBank(id, name, email) {
-  const bank = await bankRepository.getBank(id);
+  const bank = await bankRepository.updateBanks(id);
 
   // Bank not found
   if (!bank) {
@@ -102,7 +102,7 @@ async function deleteBank(id) {
  * @returns {boolean}
  */
 async function emailIsRegistered(email) {
-  const bank = await bankRepository.getBankByEmail(email);
+  const bank = await bankRepository.getBanksByEmail(email);
 
   if (bank) {
     return true;
@@ -118,7 +118,7 @@ async function emailIsRegistered(email) {
  * @returns {boolean}
  */
 async function checkPin(bankId, pin) {
-  const bank = await bankRepository.getBank(bankId);
+  const bank = await bankRepository.getBanks(bankId);
   return passwordMatched(pin, bank.pin);
 }
 
@@ -129,7 +129,7 @@ async function checkPin(bankId, pin) {
  * @returns {boolean}
  */
 async function changePin(bankId, pin) {
-  const bank = await bankRepository.getBank(bankId);
+  const bank = await bankRepository.getBanks(bankId);
 
   // Check if bank not found
   if (!bank) {
@@ -138,10 +138,7 @@ async function changePin(bankId, pin) {
 
   const hashedPin = await hashPassword(pin);
 
-  const changeSuccess = await bankRepository.changePin(
-    bankId,
-    hashedPin
-  );
+  const changeSuccess = await bankRepository.changePin(bankId, hashedPin);
 
   if (!changeSuccess) {
     return null;
@@ -152,7 +149,6 @@ async function changePin(bankId, pin) {
 
 module.exports = {
   getBanks,
-  getBank,
   createBank,
   updateBank,
   deleteBank,

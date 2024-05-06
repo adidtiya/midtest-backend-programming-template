@@ -1,24 +1,7 @@
-const mongoose = require('mongoose');
+const banksSchema = {
+  name: String,
+  email: String,
+  pin: String,
+};
 
-const bankSchema = new mongoose.Schema({
-  name: {
-    type: String,
-    required: true,
-    minlength: 1,
-    maxlength: 100,
-  },
-  email: {
-    type: String,
-    required: true,
-    unique: true,
-    match: /.+\@.+\..+/,
-  },
-  pin: {
-    type: String,
-    required: true,
-    minlength: 6,
-    maxlength: 32,
-  },
-});
-
-module.exports = mongoose.model('Bank', bankSchema);
+module.exports = banksSchema;

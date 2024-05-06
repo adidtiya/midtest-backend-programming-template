@@ -11,9 +11,10 @@ async function getBanks(request, response, next) {
   }
 }
 
-async function getBank(request, response, next) {
+async function getBanks(request, response, next) {
   try {
-    const bank = await banksService.getBank(request.params.id);
+    const bankId = request.params.id;
+    const bank = await banksService.getBanks(bankId);
 
     if (!bank) {
       throw errorResponder(errorTypes.UNPROCESSABLE_ENTITY, 'Unknown bank');
@@ -27,10 +28,7 @@ async function getBank(request, response, next) {
 
 async function createBank(request, response, next) {
   try {
-    const name = request.body.name;
-    const email = request.body.email;
-    const pin = request.body.pin;
-    const pin_confirm = request.body.pin_confirm
+    const { name, email, pin } = request.body;
 
     const success = await banksService.createBank(name, email, pin);
     if (!success) {
@@ -48,10 +46,10 @@ async function createBank(request, response, next) {
 
 async function updateBank(request, response, next) {
   try {
-    const name = request.body.name;
-    const email = request.body.email;
+    const bankId = request.params.id;
+    const { name, email } = request.body;
 
-    const success = await banksService.updateBank(name, email);
+    const success = await banksService.updateBank(bankId, name, email);
     if (!success) {
       throw errorResponder(
         errorTypes.UNPROCESSABLE_ENTITY,
@@ -59,7 +57,7 @@ async function updateBank(request, response, next) {
       );
     }
 
-    return response.status(200).json(name);
+    return response.status(200).json({ name });
   } catch (error) {
     return next(error);
   }
@@ -67,9 +65,9 @@ async function updateBank(request, response, next) {
 
 async function deleteBank(request, response, next) {
   try {
-    const id = request.params.id;
+    const bankId = request.params.id;
 
-    const success = await banksService.deleteBank(id);
+    const success = await banksService.deleteBank(bankId);
     if (!success) {
       throw errorResponder(
         errorTypes.UNPROCESSABLE_ENTITY,
@@ -77,7 +75,7 @@ async function deleteBank(request, response, next) {
       );
     }
 
-    return response.status(200).json({ id });
+    return response.status(200).json({ id: bankId });
   } catch (error) {
     return next(error);
   }
@@ -85,7 +83,6 @@ async function deleteBank(request, response, next) {
 
 module.exports = {
   getBanks,
-  getBank,
   createBank,
   updateBank,
   deleteBank,

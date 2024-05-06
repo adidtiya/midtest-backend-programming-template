@@ -1,4 +1,4 @@
-const Account = require('../../../models');
+const {Account} = require('../../../models');
 
 /**
  * Get a list of accounts
